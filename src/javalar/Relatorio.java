@@ -6,7 +6,6 @@ public class Relatorio extends SistemaJavaLar {
 	
 	public Relatorio() {
 		this.planetas = planetas;
-		
 	}
 	
 	public void dadosPlanetas() {
