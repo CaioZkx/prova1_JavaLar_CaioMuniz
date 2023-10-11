@@ -1,17 +1,16 @@
 package javalar;
 
 public abstract class Planetas extends PlanoCartesiano {
+	
 	protected String Nome;
 	protected int VelTranslacao;
 	protected double VelRotacao;
-	
 	protected double Horastotal = 0;
 	protected double Anostotal = 0;
 	protected double Anos = 0;
 	protected double Horas =0;
 	protected int colisoesComBug;
 	protected int colisoesComDev;
-	
 	protected int QntEspacos;
 		
 	public void translacao(int instante) {
@@ -63,6 +62,12 @@ public abstract class Planetas extends PlanoCartesiano {
 		System.out.println(Horastotal + " horas");
 	}
 	
+	public void AnosRodada(int instante) {
+		Anos = (double) instante / (QntEspacos / VelTranslacao) ;
+		Anostotal();
+		System.out.println(Anos + " anos");
+	}
+	
 	public void Anostotal() {
 		Anostotal += Anos;
 	}
@@ -70,12 +75,4 @@ public abstract class Planetas extends PlanoCartesiano {
 	public void ImprimirAnostotal() {
 		System.out.println(Anostotal + " anos");
 	}
-	
-	public void AnosRodada(int instante) {
-		Anos = (double) instante / (QntEspacos / VelTranslacao) ;
-		Anostotal();
-		System.out.println(Anos + " anos");
-	}
-	
-	
 }
