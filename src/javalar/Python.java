@@ -14,5 +14,7 @@ public class Python extends Planetas{
 		this.VelTranslacao = 4;
 		this.VelRotacao = 24.0;
 		this.QntEspacos = 8;
+		this.colisoesComBug = 0;
+		this.colisoesComDev = 0;
 	}
 }

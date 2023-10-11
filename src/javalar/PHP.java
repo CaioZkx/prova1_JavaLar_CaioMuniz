@@ -13,5 +13,7 @@ public class PHP extends Planetas{
 		this.VelTranslacao = 2;
 		this.VelRotacao = 60.0;
 		this.QntEspacos = 32;
+		this.colisoesComBug = 0;
+		this.colisoesComDev = 0;
 	}
 }

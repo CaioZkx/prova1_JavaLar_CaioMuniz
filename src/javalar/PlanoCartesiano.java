@@ -1,7 +1,5 @@
 package javalar;
 
-import java.util.Random;
-
 public class PlanoCartesiano {
 	protected int x;
 	protected int y;

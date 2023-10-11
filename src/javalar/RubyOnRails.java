@@ -13,5 +13,7 @@ public class RubyOnRails extends Planetas{
 		this.VelTranslacao = 2;
 		this.VelRotacao = 48.0;
 		this.QntEspacos = 24;
+		this.colisoesComBug = 0;
+		this.colisoesComDev = 0;
 	}
 }

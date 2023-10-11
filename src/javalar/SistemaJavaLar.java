@@ -13,8 +13,15 @@ public class SistemaJavaLar {
 	protected ArrayList<Devs> Dev;
 	protected int contadorInstantes;
 	
-	PlanoCartesiano plan = new PlanoCartesiano();
-//	Relatorio relatorio = new Relatorio();
+	Relatorio relatorio = new Relatorio();
+	
+	public SistemaJavaLar() {
+		this.planetas = new ArrayList<Planetas>();
+		this.planetasexplodidos = new ArrayList<Planetas>();
+		this.Bug = new ArrayList<Bugs>();
+		this.Dev = new ArrayList<Devs>();
+		menuOperacoes();
+	}
 	
 	public void adicionarPlaneta() {
 		planetas.add(new Python());
@@ -26,86 +33,12 @@ public class SistemaJavaLar {
         planetas.add(new C());
     }
 	
-	
-	//apenas teste
-//	public void posicoes(int instante) {
-//		System.out.println("Posicoes:");
-//		for (Planetas planeta : planetas) {
-//			planeta.GetName();
-//            planeta.translacao(instante);
-//        }
-//	}
-	
-	
-//	public void dadosPlanetas() {
-//		for (Planetas planeta : planetas) {
-//			planeta.GetName();
-//			System.out.println(planeta.VelRotacao);
-//			System.out.println(planeta.VelTranslacao);
-//		}
-//	}
-	
-	
-	
-//	public void calcularArea() {
-//		for (Planetas planeta1 : planetas) {
-//			for (Planetas planeta2 : planetas) {
-//				planeta2.GetName();
-//				planeta1.GetName();
-//				calculadora(planeta2.getX(), planeta2.getY(), planeta1.getX(), planeta1.getY());
-//			}
-//		}
-//	}
-//	
-//	
-//	
-//	public void calculadora(int x, int y, int x2, int y2) {
-//		int area = 1;
-//		if(x > x2 && y > y2) {
-//			int area = ((x- x2) + 1) * ((y - y2) + 1); 
-//			System.out.println(area);
-//		}
-//		else if(x < x2 && y < y2) {
-//			int area = ((x2 - x) + 1) * ((y2 - y) + 1);
-//			System.out.println(area);
-//		}
-//		else if(x > x2 && y < y2) {
-//			int area = ((x - x2) + 1) * ((y2 - y) + 1);
-//			System.out.println(area);
-//		}
-//		else if(x < x2 && y > y2) {
-//			int area = ((x2 - x) + 1) * ((y - y2) + 1);
-//			System.out.println(area);
-//		}
-//		
-//	}
-
-	
-	
-	public void northPlanets() {
-		for (Planetas planeta : planetas) {
-			plan.verifyNorthSouth();
-			plan.northSouthCounter();
-		}
-		System.out.println(plan.getNorth());
-	}	
-	public void southPlanets() {
-		for (Planetas planeta : planetas) {
-			plan.verifyNorthSouth();
-			plan.northSouthCounter();
-		}
-		System.out.println(plan.getSouth());
-	}
-	
 	private void menuOperacoes() {
 		Scanner scanner = new Scanner(System.in);
 		int op = 1;
 		int instante;
 		int bugs;
 		int devs;
-		
-		
-		
 		
 		System.out.println("***************************BEM VINDO AO SISTEMA JAVALAR**************************" + "\nPara comecar, digite a quantidade de instantes, bugs e desenvolvedores que deseja ");
 		adicionarPlaneta();
@@ -123,11 +56,11 @@ public class SistemaJavaLar {
 			
 			
 			
-			System.out.println("******** Dias em horas e anos da rodada ********");	
+			System.out.println("\n******** Dias em horas e anos da rodada ********");	
 			showYearHour(instante);
 
 			
-			System.out.println("******** Numero de Bugs e Desenvolvedores e suas posicoes ********");
+			System.out.println("\n******** Numero de Bugs e Desenvolvedores e suas posicoes ********");
 			System.out.println("Numero de Bugs: " + bugs);
 			adicionarBugs(bugs);
 			mostrarPosicaoBugs();
@@ -136,75 +69,155 @@ public class SistemaJavaLar {
 			adicionarDevs(devs);
 			mostrarPosicaoDevs();
 			
-//			posicoes(instante);
+			transladar(instante);
 			
 			verificarColisaoPlanetaBug();
 			verificarColisaoPlanetaDev();
 			
 			verificarExplosaoPlanetas();
-
 			
-			System.out.println("\nDados adicionais:");
+			System.out.println("\n******** Dados adicionais ********\n");
 			
 			
-			System.out.println("Numero de planetas no Norte:");
+			System.out.print("Numero de planetas no Norte: ");
 			northPlanets();
 			
-			System.out.println("Numero de planetas no Sul:");
+			System.out.print("Numero de planetas no Sul: ");
 			southPlanets();
 			
-			System.out.println("Ocorrencia de alinhamento:");
+			System.out.println("\nOcorrencia de alinhamento:");
+			verificarAlinhamento();
+			
+			System.out.println("\nDistancia entre planetas:");
+			calcularArea();
+			
+			System.out.println("\nDistancia euclidiana:");
+			calcularDistanciaEuclidiana();
+			
+			System.out.println("\nVelocidades de translacao:");
+			getVelTranslacao();
 			
 			
-			System.out.println("Distancia entre planetas:");
-//			calcularArea();
-			
-			System.out.println("Distancia euclidiana:");
-			
-			
-			System.out.println("Velocidades de translacao:");
-			
-			
-			
-			System.out.println("Deseja colocar novos dados? 1 - Sim / 2 - Nao");
+			System.out.println("\nDeseja colocar novos dados? 1 - Sim / 2 - Nao");
 			op = scanner.nextInt();
 			
 			}
 		
-		System.out.println("******** Relatorio do sistema ********");
+		System.out.println("\n******** Relatorio do sistema ********");
 		
-		System.out.println("Numero de colisoes de cada planeta:");
+		System.out.println("\nNumero de colisoes de cada planeta:\n");
+		mostrarNumeroColisoes();
 		
+		System.out.println("\nInformacoes sobre os planetas:");
+		dadosPlanetas();
 		
-		System.out.println("Informacoes sobre os planetas:");
-//		relatorio.dadosPlanetas();
-
+		System.out.println("\nPlanetas que explodiram:");
+		mostrarPlanetasExplodidos();
 		
-		
-		System.out.println("Planetas que explodiram:");
-		
-		
-		System.out.println("Quantidade de instantes total:");
+		System.out.println("\nQuantidade de instantes total:");
 		PrintContador();
 		
-		System.out.println("Dias em horas e anos totais passados em cada planeta:");
-//		for (Planetas planeta : planetas) {
-//            planeta.ImprimirHorastotal();
-//            planeta.ImprimirAnostotal();
-//        }
+		System.out.println("\nDias em horas e anos totais passados em cada planeta:");
+		mostrarAnosHorasTotais();
 		
-		System.out.println("Resumo sobre cada planeta do sistema:");
+		System.out.println("\nResumo sobre cada planeta do sistema:");
+		relatorio.exibirResumo();
 	}
 	
-	public SistemaJavaLar() {
-		this.planetas = new ArrayList<Planetas>();
-		this.planetasexplodidos = new ArrayList<Planetas>();
-		this.Bug = new ArrayList<Bugs>();
-		this.Dev = new ArrayList<Devs>();
-		menuOperacoes();
+	private void mostrarNumeroColisoes() {
+		for (Planetas p : planetas) {
+			System.out.println(p.GetName() + ": " + p.colisoesComBug + " colisoes com bugs e " + p.colisoesComDev + " colisoes com devs\n");
+		}
+		for (Planetas p : planetasexplodidos) {
+			System.out.println(p.GetName() + ": " + p.colisoesComBug + " colisoes com bugs e " + p.colisoesComDev + " colisoes com devs\n");
+		}
 	}
 	
-	public void adicionarBugs(int qntBugs) {
+	private void mostrarPlanetasExplodidos() {
+		for (Planetas palnetas : planetasexplodidos) {
+			System.out.println(palnetas.GetName());
+		}
+	}
+	
+	private void mostrarAnosHorasTotais() {
+		for (Planetas planeta : planetas) {
+			System.out.println("\n" + planeta.GetName());
+            planeta.ImprimirHorastotal();
+            planeta.ImprimirAnostotal();
+        }
+		for (Planetas p : planetasexplodidos) {
+			System.out.println("\n" + p.GetName());
+            p.ImprimirHorastotal();
+            p.ImprimirAnostotal();
+		}
+	}
+	
+	private void transladar(int instante) {
+		for (Planetas p : planetas) {
+			p.translacao(instante);
+		}
+	}
+	
+	private void calcularArea() {
+		for (Planetas planeta1 : planetas) {
+			for (Planetas planeta2 : planetas) {
+				System.out.print(planeta2.GetName() + " X " + planeta1.GetName() + ": " + calculadoraArea(planeta2.getX(), planeta2.getY(), planeta1.getX(), planeta1.getY()) + "\n");
+			}
+		}
+	}
+	
+	private double calculadoraArea(int x, int y, int x2, int y2) {
+		double area = (Math.abs(x2 - x) + 1) * (Math.abs(y2 - y) + 1);
+		
+		return area;
+	}
+
+	private double calculaoraEuclidiana(int x, int y, int x2, int y2) {
+		double distancia = Math.sqrt(Math.pow(Math.abs(x2 - x) + 1, 2) + Math.pow(Math.abs(y2 - y) + 1, 2));
+		
+		return distancia;
+		
+	}
+	
+	private void calcularDistanciaEuclidiana() {
+		for (Planetas planeta1 : planetas) {
+			for (Planetas planeta2 : planetas) {
+				System.out.println(planeta2.GetName() + " X " + planeta1.GetName() + ": " + calculaoraEuclidiana(planeta2.getX(), planeta2.getY(), planeta1.getX(), planeta1.getY()));
+				
+			}
+		}
+	}
+
+	private void northPlanets() {
+		int cont = 0;
+		
+		for (Planetas planeta : planetas) {
+			if(planeta.getY() > 8) {
+				cont++;
+			}
+		}
+		System.out.println(cont);
+	}	
+
+	private void southPlanets() {
+		int cont = 0;
+		
+		for (Planetas planeta : planetas) {
+			if(planeta.getY() < 8 ) {
+				cont++;
+			}
+		}
+		System.out.println(cont);
+	}	
+	
+	private void getVelTranslacao() {
+		for (Planetas p : planetas) {
+			System.out.println(p.GetName() +": " +  p.VelTranslacao + " UI");
+		}
+	}
+	
+	
+	private void adicionarBugs(int qntBugs) {
 	    Random random = new Random();
 	    
 	    for (int i = 0; i < qntBugs; i++) {
@@ -229,13 +242,14 @@ public class SistemaJavaLar {
 	    return false;
 	}
 	
-	public void verificarColisaoPlanetaBug() {
+	private void verificarColisaoPlanetaBug() {
 	    for (Planetas planeta : planetas) {
 	        for (int i = 0; i < Bug.size(); i++) {
 	            Bugs bug = Bug.get(i);
 	            if (planeta.getX() == bug.getX() && planeta.getY() == bug.getY()) {
 	                planeta.diminuirTranslacao();
-	                System.out.println("\nHouve colisao com bug: " + planeta.Nome + "(" + bug.getX() + "," + bug.getY()+ ")");
+	                planeta.colisoesComBug++;
+	                System.out.println("\nHouve colisao com bug: " + planeta.Nome + " (" + bug.getX() + "," + bug.getY()+ ")");
 	                Bug.remove(i);
 	                i--;
 	            }
@@ -243,10 +257,16 @@ public class SistemaJavaLar {
 	    }
 	}
 
-	
+	private void dadosPlanetas() {
+		for (Planetas planeta : planetas) {
+			System.out.println("\n" + planeta.GetName());
+			System.out.println("Velocidade de Rotacao: " + planeta.VelRotacao + " UI");
+			System.out.println("Velocidade de Translacao: " + planeta.VelTranslacao + " UI");
+		}
+	}
 
 	
-	public void adicionarDevs(int qntDevs) {
+	private void adicionarDevs(int qntDevs) {
 		Random random = new Random();
 	    
 	    for (int i = 0; i < qntDevs; i++) {
@@ -271,47 +291,47 @@ public class SistemaJavaLar {
 	    return false;
 	}
 
-	public void verificarColisaoPlanetaDev() {
+	private void verificarColisaoPlanetaDev() {
 	    for (Planetas planeta : planetas) {
 	        for (int i = 0; i < Dev.size(); i++) {
 	            Devs dev = Dev.get(i);
 	            if (planeta.getX() == dev.getX() && planeta.getY() == dev.getY()) {
 	                planeta.aumentarTranslacao();
-	                System.out.println("\nHouve colisao com dev: " + planeta.Nome);
+	                planeta.colisoesComDev++;
+	                System.out.println("\nHouve colisao com dev: " + planeta.Nome + " (" + dev.getX() + "," + dev.getY() + ")");
 	                Dev.remove(i);
 	                i--;
 	            }
 	        }
 	    }
 	}	
+
 	
 	
-	public void verificarExplosaoPlanetas() {
+	private void verificarExplosaoPlanetas() {
 	    List<Planetas> planetasParaRemover = new ArrayList<>();
 	    
 	    for (Planetas planeta : planetas) {
 	        if (planeta.VelTranslacao == 0) {
-	            // Adicione o planeta ao array de planetas explodidos
+
 	            planetasexplodidos.add(planeta);
 	            
-	            // Adicione o planeta à lista de planetas para remoção
 	            planetasParaRemover.add(planeta);
 	            
 	            System.out.println("\nPlaneta explodiu: " + planeta.Nome);
 	        }
 	    }
 	    
-	    // Remova os planetas da lista de planetas
 	    planetas.removeAll(planetasParaRemover);
 	}
 
 	
-	public void mostrarPosicaoBugs() {
+	private void mostrarPosicaoBugs() {
 		for (Bugs bugs : Bug) {
 			System.out.print("(" + bugs.getX() + "," + bugs.getY() + ")");
 		}
 	}
-	public void mostrarPosicaoDevs() {
+	private void mostrarPosicaoDevs() {
 		for (Devs devs : Dev) {
 			System.out.print("(" + devs.getX() + "," + devs.getY() + ")");
 		}
@@ -320,7 +340,7 @@ public class SistemaJavaLar {
 	
 	private void showYearHour(int instante) {		
 		for (Planetas planeta : planetas) {
-			planeta.GetName();
+			System.out.print(planeta.GetName() + ": ");
 			planeta.HorasRodada(instante);
 			planeta.AnosRodada(instante);		
 		}
@@ -328,13 +348,24 @@ public class SistemaJavaLar {
 	
 	
 	
-	public void contadorDeInstantes(int instante) {
+	private void contadorDeInstantes(int instante) {
 		contadorInstantes += instante;
 	}
-	public void PrintContador() {
+	private void PrintContador() {
 		System.out.println(contadorInstantes);
 	}
 	
-	
+	private void verificarAlinhamento() {
+		int cont = 0;
+		for (Planetas p : planetas) {
+			for (Planetas p2 : planetas) {
+				if(p.getX() == p2.getX() || p.getY() == p2.getY())
+					cont++;
+			}
+		}
+		if(cont == 49)
+			System.out.println("Ocorreu alinhamento");
+		else System.out.println("Nao ocorreu alinhamento");
+	}
 	
 }

@@ -13,5 +13,7 @@ public class JavaScript extends Planetas {
 		this.VelTranslacao = 3;
 		this.VelRotacao = 10.0;
 		this.QntEspacos = 16;
+		this.colisoesComBug = 0;
+		this.colisoesComDev = 0;
 	}
 }

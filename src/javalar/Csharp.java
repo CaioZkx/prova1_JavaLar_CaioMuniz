@@ -13,5 +13,7 @@ public class Csharp extends Planetas {
 		this.VelTranslacao = 1;
 		this.VelRotacao = 4.0;
 		this.QntEspacos = 40;
+		this.colisoesComBug = 0;
+		this.colisoesComDev = 0;
 	}
 }

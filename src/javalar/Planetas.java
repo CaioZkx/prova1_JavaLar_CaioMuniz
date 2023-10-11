@@ -9,7 +9,8 @@ public abstract class Planetas extends PlanoCartesiano {
 	protected double Anostotal = 0;
 	protected double Anos = 0;
 	protected double Horas =0;
-	
+	protected int colisoesComBug;
+	protected int colisoesComDev;
 	
 	protected int QntEspacos;
 		
@@ -33,7 +34,6 @@ public abstract class Planetas extends PlanoCartesiano {
 				moves--;
 			}	
 	    }
-		System.out.println("("+ x +"," + y+")");
 	}
 	
 	
@@ -45,8 +45,8 @@ public abstract class Planetas extends PlanoCartesiano {
 		VelTranslacao++;
 	}
 
-	public void GetName() {
-		System.out.println(Nome);
+	public String GetName() {
+		return Nome;
 	}
 
 	public void HorasRodada(int instante) {
@@ -72,7 +72,7 @@ public abstract class Planetas extends PlanoCartesiano {
 	}
 	
 	public void AnosRodada(int instante) {
-		Anos = instante / (QntEspacos / VelTranslacao) ;
+		Anos = (double) instante / (QntEspacos / VelTranslacao) ;
 		Anostotal();
 		System.out.println(Anos + " anos");
 	}

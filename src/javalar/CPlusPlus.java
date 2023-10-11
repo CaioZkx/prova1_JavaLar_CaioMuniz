@@ -13,5 +13,7 @@ public class CPlusPlus extends Planetas {
 		this.VelTranslacao = 2;
 		this.VelRotacao = 0.5;
 		this.QntEspacos = 48;
+		this.colisoesComBug = 0;
+		this.colisoesComDev = 0;
 	}
 }

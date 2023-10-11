@@ -13,5 +13,7 @@ public class C extends Planetas {
 		this.VelTranslacao = 10;
 		this.VelRotacao = 0.1;
 		this.QntEspacos = 56;
+		this.colisoesComBug = 0;
+		this.colisoesComDev = 0;
 	}
 }
