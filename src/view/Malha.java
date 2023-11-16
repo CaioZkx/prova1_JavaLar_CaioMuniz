@@ -18,14 +18,12 @@ public class Malha extends JPanel {
                 quadradinho.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 add(quadradinho);
 
-                // Ajuste para mudar a origem para o canto inferior esquerdo
                 int novaLinha = 15 - linha;
                 int novaColuna = coluna;
                 quadradinhos[novaLinha][novaColuna] = quadradinho;
             }
         }
 
-        // Adiciona o Sol no centro
         quadradinhos[8][8].setBackground(Color.YELLOW);
         quadradinhos[9][8].setBackground(Color.red);
         quadradinhos[10][8].setBackground(Color.blue);
@@ -36,10 +34,7 @@ public class Malha extends JPanel {
         quadradinhos[15][8].setBackground(Color.darkGray);
 //        quadradinhos[0][0].add(new JLabel(new ImageIcon("aa.png")));
         
-    }
-    int quadradinhoAnteriorX;
-    int quadradinhoAnteriorY;
-    
+    }    
     
     public void mover(int x, int y, String name) {
         
