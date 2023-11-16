@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import view.Janela;
+
 public class SistemaJavaLar {
 	
-	protected ArrayList<Planetas> planetas;
+	public ArrayList<Planetas> planetas;
 	protected ArrayList<Planetas> planetasexplodidos;
 	protected ArrayList<Bugs> Bug;
 	protected ArrayList<Devs> Dev;
@@ -20,7 +22,7 @@ public class SistemaJavaLar {
 		this.planetasexplodidos = new ArrayList<Planetas>();
 		this.Bug = new ArrayList<Bugs>();
 		this.Dev = new ArrayList<Devs>();
-		menuOperacoes();
+//		menuOperacoes();
 	}
 	
 	public void adicionarPlaneta() {
@@ -34,96 +36,97 @@ public class SistemaJavaLar {
         
     }
 	
-	private void menuOperacoes() {
-		Scanner scanner = new Scanner(System.in);
-		int op = 1;
-		int instante;
-		int bugs;
-		int devs;
-		
-		System.out.println("***************************BEM VINDO AO SISTEMA JAVALAR**************************" + "\nPara comecar, digite a quantidade de instantes, bugs e desenvolvedores que deseja ");
-		adicionarPlaneta();
-		
-		while(op == 1) {
-			System.out.print("Instantes: ");
-			instante = scanner.nextInt();
-			contadorDeInstantes(instante);
-			
-			System.out.print("Bugs: ");
-			bugs = scanner.nextInt();
-			
-			System.out.print("Desenvolvedores: ");
-			devs = scanner.nextInt();
-			
-			
-			
-			System.out.println("\n******** Dias em horas e anos da rodada ********");	
-			showYearHour(instante);
-
-			
-			System.out.println("\n******** Numero de Bugs e Desenvolvedores e suas posicoes ********");
-			System.out.println("Numero de Bugs: " + bugs);
-			adicionarBugs(bugs);
-			mostrarPosicaoBugs();
-			
-			System.out.println("\nNumero de Desenvolvedores: " + devs);
-			adicionarDevs(devs);
-			mostrarPosicaoDevs();
-			
-			transladar(instante);
-			
-			verificarColisaoPlanetaBug();
-			verificarColisaoPlanetaDev();
-			
-			verificarExplosaoPlanetas();
-			
-			System.out.println("\n******** Dados adicionais ********\n");
-			
-			
-			System.out.print("Numero de planetas no Norte: ");
-			northPlanets();
-			
-			System.out.print("Numero de planetas no Sul: ");
-			southPlanets();
-			
-			System.out.println("\nOcorrencia de alinhamento:");
-			verificarAlinhamento();
-			
-			System.out.println("\nDistancia entre planetas:");
-			calcularArea();
-			
-			System.out.println("\nDistancia euclidiana:");
-			calcularDistanciaEuclidiana();
-			
-			System.out.println("\nVelocidades de translacao:");
-			getVelTranslacao();
-			
-			
-			System.out.println("\nDeseja colocar novos dados? 1 - Sim / 2 - Nao");
-			op = scanner.nextInt();
-			
-			}
-		
-		System.out.println("\n******** Relatorio do sistema ********");
-		
-		System.out.println("\nNumero de colisoes de cada planeta:\n");
-		mostrarNumeroColisoes();
-		
-		System.out.println("\nInformacoes sobre os planetas:");
-		dadosPlanetas();
-		
-		System.out.println("\nPlanetas que explodiram:");
-		mostrarPlanetasExplodidos();
-		
-		System.out.println("\nQuantidade de instantes total:");
-		PrintContador();
-		
-		System.out.println("\nDias em horas e anos totais passados em cada planeta:");
-		mostrarAnosHorasTotais();
-		
-		System.out.println("\nResumo sobre cada planeta do sistema:");
-		relatorio.exibirResumo();
-	}
+//	private void menuOperacoes() {
+//		Scanner scanner = new Scanner(System.in);
+//		int op = 1;
+//		int instante;
+//		int bugs;
+//		int devs;
+//		
+//		System.out.println("***************************BEM VINDO AO SISTEMA JAVALAR**************************" + "\nPara comecar, digite a quantidade de instantes, bugs e desenvolvedores que deseja ");
+//		adicionarPlaneta();
+//		
+//		while(op == 1) {
+//			System.out.print("Instantes: ");
+//			instante = scanner.nextInt();
+//			contadorDeInstantes(instante);
+//			
+//			System.out.print("Bugs: ");
+//			bugs = scanner.nextInt();
+//			
+//			System.out.print("Desenvolvedores: ");
+//			devs = scanner.nextInt();
+//			
+//			
+//			
+//			System.out.println("\n******** Dias em horas e anos da rodada ********");	
+//			showYearHour(instante);
+//
+//			
+//			System.out.println("\n******** Numero de Bugs e Desenvolvedores e suas posicoes ********");
+//			System.out.println("Numero de Bugs: " + bugs);
+//			adicionarBugs(bugs);
+//			mostrarPosicaoBugs();
+//			
+//			System.out.println("\nNumero de Desenvolvedores: " + devs);
+//			adicionarDevs(devs);
+//			mostrarPosicaoDevs();
+//			
+//
+//			transladar(instante);
+//			
+//			verificarColisaoPlanetaBug();
+//			verificarColisaoPlanetaDev();
+//			
+//			verificarExplosaoPlanetas();
+//			
+//			System.out.println("\n******** Dados adicionais ********\n");
+//			
+//			
+//			System.out.print("Numero de planetas no Norte: ");
+//			northPlanets();
+//			
+//			System.out.print("Numero de planetas no Sul: ");
+//			southPlanets();
+//			
+//			System.out.println("\nOcorrencia de alinhamento:");
+//			verificarAlinhamento();
+//			
+//			System.out.println("\nDistancia entre planetas:");
+//			calcularArea();
+//			
+//			System.out.println("\nDistancia euclidiana:");
+//			calcularDistanciaEuclidiana();
+//			
+//			System.out.println("\nVelocidades de translacao:");
+//			getVelTranslacao();
+//			
+//			
+//			System.out.println("\nDeseja colocar novos dados? 1 - Sim / 2 - Nao");
+//			op = scanner.nextInt();
+//			
+//			}
+//		
+//		System.out.println("\n******** Relatorio do sistema ********");
+//		
+//		System.out.println("\nNumero de colisoes de cada planeta:\n");
+//		mostrarNumeroColisoes();
+//		
+//		System.out.println("\nInformacoes sobre os planetas:");
+//		dadosPlanetas();
+//		
+//		System.out.println("\nPlanetas que explodiram:");
+//		mostrarPlanetasExplodidos();
+//		
+//		System.out.println("\nQuantidade de instantes total:");
+//		PrintContador();
+//		
+//		System.out.println("\nDias em horas e anos totais passados em cada planeta:");
+//		mostrarAnosHorasTotais();
+//		
+//		System.out.println("\nResumo sobre cada planeta do sistema:");
+//		relatorio.exibirResumo();
+//	}
 	
 	private void mostrarNumeroColisoes() {
 		for (Planetas p : planetas) {
@@ -153,7 +156,7 @@ public class SistemaJavaLar {
 		}
 	}
 	
-	private void transladar(int instante) {
+	public void transladar(int instante) {
 		for (Planetas p : planetas) {
 			p.translacao(instante);
 		}
