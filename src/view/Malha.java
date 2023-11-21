@@ -14,7 +14,7 @@ public class Malha extends JPanel {
 
         for (int linha = 0; linha < 16; linha++) {
             for (int coluna = 0; coluna < 16; coluna++) {
-                JPanel quadradinho = new JPanel();
+            	JPanel quadradinho = new JPanel();
                 quadradinho.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 add(quadradinho);
 
@@ -32,20 +32,20 @@ public class Malha extends JPanel {
         quadradinhos[13][8].setBackground(Color.black);
         quadradinhos[14][8].setBackground(Color.cyan);
         quadradinhos[15][8].setBackground(Color.darkGray);
-//        quadradinhos[0][0].add(new JLabel(new ImageIcon("aa.png")));
+//        quadradinhos[0][0].add(new JLabel(new ImageIcon("C:\\Users\\caiom\\OneDrive\\Área de Trabalho\\Eclipse Projects\\JavaLar\\aa.png")));
         
     }    
     
     public void mover(int x, int y, String name) {
         
     	
-    	for(int i = 0; i <= 15; i++) {
-    		for(int j = 0; j <= 15; j++) {
-    			quadradinhos[i][j].setBackground(null);
-    		}
-    	}
- 			
-        quadradinhos[8][8].setBackground(Color.YELLOW);
+//    	for(int i = 0; i <= 15; i++) {
+//    		for(int j = 0; j <= 15; j++) {
+//    			quadradinhos[i][j].setBackground(null);
+//    		}
+//    	}
+// 			
+//        quadradinhos[8][8].setBackground(Color.YELLOW);
 
     	           
         if(name == "Python") {
@@ -73,6 +73,15 @@ public class Malha extends JPanel {
         quadradinhos[x][y].revalidate();
         quadradinhos[x][y].repaint();
 
+    }
+    
+    public void remove() {
+    	for(int i = 0; i <= 15; i++) {
+    		for(int j = 0; j <= 15; j++) {
+    			quadradinhos[i][j].setBackground(null);
+    		}
+    	}
+    	quadradinhos[8][8].setBackground(Color.YELLOW);
     }
   
     

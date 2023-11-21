@@ -221,7 +221,7 @@ public class SistemaJavaLar {
 	}
 	
 	
-	private void adicionarBugs(int qntBugs) {
+	public void adicionarBugs(int qntBugs) {
 	    Random random = new Random();
 	    
 	    for (int i = 0; i < qntBugs; i++) {
@@ -237,7 +237,7 @@ public class SistemaJavaLar {
 	    }
 	}
 	
-	private boolean verificarCoordenadasBugs(int x, int y) {
+	public boolean verificarCoordenadasBugs(int x, int y) {
 	    for (Bugs bug : Bug) {
 	        if (bug.getX() == x && bug.getY() == y) {
 	            return true;
@@ -246,7 +246,7 @@ public class SistemaJavaLar {
 	    return false;
 	}
 	
-	private void verificarColisaoPlanetaBug() {
+	public void verificarColisaoPlanetaBug() {
 	    for (Planetas planeta : planetas) {
 	        for (int i = 0; i < Bug.size(); i++) {
 	            Bugs bug = Bug.get(i);
@@ -270,7 +270,7 @@ public class SistemaJavaLar {
 	}
 
 	
-	private void adicionarDevs(int qntDevs) {
+	public void adicionarDevs(int qntDevs) {
 		Random random = new Random();
 	    
 	    for (int i = 0; i < qntDevs; i++) {
@@ -286,7 +286,7 @@ public class SistemaJavaLar {
 	    }
 	}
 
-	private boolean verificarCoordenadasDevs(int x, int y) {
+	public boolean verificarCoordenadasDevs(int x, int y) {
 	    for (Devs devs : Dev) {
 	        if (devs.getX() == x && devs.getY() == y) {
 	            return true;
@@ -295,7 +295,7 @@ public class SistemaJavaLar {
 	    return false;
 	}
 
-	private void verificarColisaoPlanetaDev() {
+	public void verificarColisaoPlanetaDev() {
 	    for (Planetas planeta : planetas) {
 	        for (int i = 0; i < Dev.size(); i++) {
 	            Devs dev = Dev.get(i);
@@ -312,7 +312,7 @@ public class SistemaJavaLar {
 
 	
 	
-	private void verificarExplosaoPlanetas() {
+	public void verificarExplosaoPlanetas() {
 	    List<Planetas> planetasParaRemover = new ArrayList<>();
 	    
 	    for (Planetas planeta : planetas) {
