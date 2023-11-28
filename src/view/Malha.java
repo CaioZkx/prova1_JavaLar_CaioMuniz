@@ -24,32 +24,21 @@ public class Malha extends JPanel {
             }
         }
 
-        quadradinhos[8][8].setBackground(Color.YELLOW);
-        quadradinhos[9][8].setBackground(Color.red);
+        quadradinhos[8][8].setBackground(Color.yellow);
+        quadradinhos[9][8].setBackground(Color.red);;
         quadradinhos[10][8].setBackground(Color.blue);
         quadradinhos[11][8].setBackground(Color.gray);
         quadradinhos[12][8].setBackground(Color.green);
         quadradinhos[13][8].setBackground(Color.black);
         quadradinhos[14][8].setBackground(Color.cyan);
         quadradinhos[15][8].setBackground(Color.darkGray);
-//        quadradinhos[0][0].add(new JLabel(new ImageIcon("C:\\Users\\caiom\\OneDrive\\Área de Trabalho\\Eclipse Projects\\JavaLar\\aa.png")));
         
     }    
     
-    public void mover(int x, int y, String name) {
-        
-    	
-//    	for(int i = 0; i <= 15; i++) {
-//    		for(int j = 0; j <= 15; j++) {
-//    			quadradinhos[i][j].setBackground(null);
-//    		}
-//    	}
-// 			
-//        quadradinhos[8][8].setBackground(Color.YELLOW);
-
+    public void mover(int x, int y, String name) {      
     	           
         if(name == "Python") {
-        	quadradinhos[x][y].setBackground(Color.RED);       		
+        	quadradinhos[x][y].setBackground(Color.red);;       		
         }
         else if(name == "JavaScript") {
         	quadradinhos[x][y].setBackground(Color.blue);

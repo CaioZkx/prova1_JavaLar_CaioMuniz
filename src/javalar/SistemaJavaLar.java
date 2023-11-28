@@ -5,17 +5,19 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import model.DAO;
 import view.Janela;
 
 public class SistemaJavaLar {
 	
-	public ArrayList<Planetas> planetas;
+	protected ArrayList<Planetas> planetas;
 	protected ArrayList<Planetas> planetasexplodidos;
 	protected ArrayList<Bugs> Bug;
 	protected ArrayList<Devs> Dev;
 	protected int contadorInstantes;
+	protected String arquivoAtual = "AE_10.csv";
 	
-	Relatorio relatorio = new Relatorio();
+	DAO dao = new DAO(this);
 	
 	public SistemaJavaLar() {
 		this.planetas = new ArrayList<Planetas>();
@@ -370,6 +372,67 @@ public class SistemaJavaLar {
 		if(cont == 49)
 			System.out.println("Ocorreu alinhamento");
 		else System.out.println("Nao ocorreu alinhamento");
+	}
+	
+	public String proximoArquivo(String arq) {
+		
+		if(arq == "AE_10.csv") {
+			arquivoAtual = "AE_50.csv";			
+			return arquivoAtual;
+		}
+		else if(arq == "AE_50.csv") {
+			arquivoAtual = "AE_100.csv";
+			return arquivoAtual;
+		}
+		else if(arq == "AE_100.csv") {
+			arquivoAtual = "AE_500.csv";
+			return arquivoAtual;
+		}
+		else if(arq == "AE_500.csv") {
+			arquivoAtual = "AE_1000.csv";
+			return arquivoAtual;
+		}	
+		else if(arq == "AE_1000.csv") {
+			arquivoAtual = "AE_1500.csv";
+			return arquivoAtual;
+		}
+		else if(arq == "AE_1500.csv") {
+			arquivoAtual = "AE_2000.csv";
+			return arquivoAtual;
+		}
+		else if(arq == "AE_2000.csv") {
+			arquivoAtual = "AE_10.csv";
+			return arquivoAtual;
+		}
+		return null;
+	}
+	
+	public ArrayList<Planetas> getPlanetas() {
+		return planetas;
+	}
+
+	public ArrayList<Bugs> getBug() {
+		return Bug;
+	}
+
+	public ArrayList<Devs> getDev() {
+		return Dev;
+	}
+	
+	public String getArquivo() {
+		return arquivoAtual;
+	}
+	
+	public void gravarRelatorio() {
+		dao.relatorio();
+	}
+	
+	public void saidaArquivo() {
+		dao.arquivoDeSaida();
+	}
+	
+	public void nomes() {
+		dao.ExemploNomes();
 	}
 	
 }

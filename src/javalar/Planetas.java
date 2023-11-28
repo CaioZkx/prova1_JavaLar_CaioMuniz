@@ -12,6 +12,8 @@ public abstract class Planetas extends PlanoCartesiano {
 	protected int colisoesComBug;
 	protected int colisoesComDev;
 	protected int QntEspacos;
+	
+	
 		
 	public void translacao(int instante) {
 		int moves = instante * VelTranslacao;
@@ -33,11 +35,15 @@ public abstract class Planetas extends PlanoCartesiano {
 				moves--;
 			}	
 	    }
+		
+		HorasRodada(instante);
+		AnosRodada(instante);
 	}
 	
 	
 	public void diminuirTranslacao() {
-		VelTranslacao--;
+		if(VelTranslacao > 0 )
+		VelTranslacao--;		
 	}
 	
 	public void aumentarTranslacao() {
@@ -51,7 +57,7 @@ public abstract class Planetas extends PlanoCartesiano {
 	public void HorasRodada(int instante) {
 		Horas = instante * VelRotacao;		
 		Horastotal();
-		System.out.println(Horas + " horas");
+//		System.out.println(Horas + " horas");
 	}
 	
 	public void Horastotal() {
@@ -63,9 +69,11 @@ public abstract class Planetas extends PlanoCartesiano {
 	}
 	
 	public void AnosRodada(int instante) {
+		
+		if(VelTranslacao > 0)
 		Anos = (double) instante / (QntEspacos / VelTranslacao) ;
 		Anostotal();
-		System.out.println(Anos + " anos");
+//		System.out.println(Anos + " anos");
 	}
 	
 	public void Anostotal() {
@@ -74,5 +82,26 @@ public abstract class Planetas extends PlanoCartesiano {
 	
 	public void ImprimirAnostotal() {
 		System.out.println(Anostotal + " anos");
+	}
+	
+	public int getColisoesComBug() {
+		return colisoesComBug;
+	}
+
+
+	public int getColisoesComDev() {
+		return colisoesComDev;
+	}
+	
+	public int getVelocidadeTranslacao() {
+		return VelTranslacao;
+	}
+	
+	public double getHoras() {
+		return Horastotal;
+	}
+	
+	public double getAnos() {
+		return Anostotal;
 	}
 }

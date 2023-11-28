@@ -1,0 +1,252 @@
+package model;
+
+import javalar.SistemaJavaLar;
+import javalar.Bugs;
+import javalar.Devs;
+import javalar.Planetas;
+import javalar.PlanoCartesiano;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import view.Janela;
+
+public class DAO {
+	
+	private SistemaJavaLar sistema;
+	private ArrayList<String> nomes;
+	private ArrayList<String> matricula;
+	private int quantidadeInstantes;
+	private int bug_q1;
+	private int bug_q2;
+	private int bug_q3;
+	private int bug_q4;
+	
+	public DAO(SistemaJavaLar sistema) {
+		this.sistema = sistema;
+		this.nomes = new ArrayList<String>();
+		this.matricula = new ArrayList<String>();
+	}
+	
+    
+    public void arquivoDeSaida() {
+    	// Conectar ao banco de dados
+    	try (Connection conexao = new Conexao().getConexao()) {
+    	    // Consulta SQL
+    		String consultaSQL = "SELECT * FROM javalar";
+
+    		// Lista para armazenar os nomes
+//    		List<String> nomes = new ArrayList<>();
+
+    		// Preparar a consulta
+    		try (PreparedStatement preparedStatement = conexao.prepareStatement(consultaSQL)) {
+    		    // Executar a consulta
+    		    ResultSet resultado = preparedStatement.executeQuery();
+
+    		    // Processar os resultados
+    		    while (resultado.next()) {
+    		        // Adicionar o nome à lista
+    		        nomes.add(resultado.getString("nome"));
+    		        quantidadeInstantes++;
+    		        
+    		        bug_q1 += resultado.getInt("bug_q1");
+    		        bug_q2 += resultado.getInt("bug_q2");
+    		        bug_q3 += resultado.getInt("bug_q3");
+    		        bug_q4 += resultado.getInt("bug_q4");
+
+//    		        matricula.add(resultado.getString("matricula"));
+    		    }
+    		}
+
+    		// Imprimir os nomes
+    		for (String nome : nomes) {
+    		    System.out.println(nome);   		    
+    		}
+    		System.out.println();
+//    		for (String string : matricula) {
+//    			System.out.print(" " + string);
+//			}
+    		System.out.println(quantidadeInstantes);
+    	    
+    	} catch (SQLException e) {
+    	    e.printStackTrace();
+    	}
+    }
+    
+    public void ExemploNomes() {
+
+
+            // Mapa para contar a frequência de cada nome
+            Map<String, Integer> contagemNomes = new HashMap<>();
+
+            // Contar a frequência de cada nome
+            for (String nome : nomes) {
+                contagemNomes.put(nome, contagemNomes.getOrDefault(nome, 0) + 1);
+            }
+
+            // Encontrar o nome mais recorrente
+            String nomeMaisRecurrente = Collections.max(contagemNomes.entrySet(), Map.Entry.comparingByValue()).getKey();
+
+            // Imprimir o resultado
+            System.out.println("Nome mais recorrente: " + nomeMaisRecurrente);
+            System.out.println("quantidade inst: " + quantidadeInstantes);
+            System.out.println("Quadrante bugs: " + nomeMaisRecurrente);
+        
+    }
+       
+      
+    public void relatorio() {
+    	String nomeArquivo = sistema.getArquivo();
+        String nomeNovoAluno = "Caio";
+        int matriculaNovoAluno = 553853;
+        
+
+        // Conectar ao banco de dados
+        try (Connection conexao = new Conexao().getConexao()) {
+            // Instrução SQL para inserir um novo aluno
+            String insercaoSQL = "INSERT INTO javalar (nome, matricula, nome_arquivo, bug_python, bug_javascript, bug_ruby, bug_php, "
+            		+ "bug_csharp, bug_cmais, bug_c, dev_python, dev_javascript, dev_ruby, dev_php, dev_csharp, dev_cmais, dev_c, "
+            		+ "v_python, v_javascript, v_ruby, v_php, v_csharp, v_cmais, v_c, d_python, d_javascript, d_ruby, d_php, "
+            		+ "d_csharp, d_cmais, d_c, a_python, a_javascript, a_ruby, a_php, a_csharp, a_cmais, a_c, bug_q1, bug_q2, "
+            		+ "bug_q3, bug_q4, dev_q1, dev_q2, dev_q3, dev_q4) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
+            		+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            // Preparar a instrução SQL
+            try (PreparedStatement preparedStatement = conexao.prepareStatement(insercaoSQL)) {
+                // Definir os parâmetros
+            
+            	
+            	
+            	preparedStatement.setString(1, nomeNovoAluno);
+                preparedStatement.setInt(2, matriculaNovoAluno);
+                preparedStatement.setString(3, nomeArquivo);
+                
+            	for (Planetas pl : sistema.getPlanetas()) {
+            		
+            		if(pl.GetName() == "Python") {
+            			preparedStatement.setDouble(4, pl.getColisoesComBug());
+            			preparedStatement.setDouble(11, pl.getColisoesComDev());
+            			preparedStatement.setDouble(18, pl.getVelocidadeTranslacao());
+            			preparedStatement.setDouble(25, pl.getHoras());
+            			preparedStatement.setDouble(32, pl.getAnos());
+            		}
+            		if(pl.GetName() == "JavaScript") {
+            			preparedStatement.setDouble(5, pl.getColisoesComBug());
+            			preparedStatement.setDouble(12, pl.getColisoesComDev());
+            			preparedStatement.setDouble(19, pl.getVelocidadeTranslacao());
+            			preparedStatement.setDouble(26, pl.getHoras());
+            			preparedStatement.setDouble(33, pl.getAnos());
+            		}
+            		if(pl.GetName() == "Ruby On Rails") {
+            			preparedStatement.setDouble(6, pl.getColisoesComBug());
+            			preparedStatement.setDouble(13, pl.getColisoesComDev());
+            			preparedStatement.setDouble(20, pl.getVelocidadeTranslacao());
+            			preparedStatement.setDouble(27, pl.getHoras());
+            			preparedStatement.setDouble(34, pl.getAnos());
+            		}
+            		if(pl.GetName() == "PHP") {
+            			preparedStatement.setDouble(7, pl.getColisoesComBug());
+            			preparedStatement.setDouble(14, pl.getColisoesComDev());
+            			preparedStatement.setDouble(21, pl.getVelocidadeTranslacao());
+            			preparedStatement.setDouble(28, pl.getHoras());
+            			preparedStatement.setDouble(35, pl.getAnos());
+            		}
+            		if(pl.GetName() == "C#") {
+            			preparedStatement.setDouble(8, pl.getColisoesComBug());
+            			preparedStatement.setDouble(15, pl.getColisoesComDev());
+            			preparedStatement.setDouble(22, pl.getVelocidadeTranslacao());
+            			preparedStatement.setDouble(29, pl.getHoras());
+            			preparedStatement.setDouble(36, pl.getAnos());
+            		}
+            		if(pl.GetName() == "C++") {
+            			preparedStatement.setDouble(9, pl.getColisoesComBug());
+            			preparedStatement.setDouble(16, pl.getColisoesComDev());
+            			preparedStatement.setDouble(23, pl.getVelocidadeTranslacao());
+            			preparedStatement.setDouble(30, pl.getHoras());
+            			preparedStatement.setDouble(37, pl.getAnos());
+            		}
+            		if(pl.GetName() == "C") {
+            			preparedStatement.setDouble(10, pl.getColisoesComBug());
+            			preparedStatement.setDouble(17, pl.getColisoesComDev());
+            			preparedStatement.setDouble(24, pl.getVelocidadeTranslacao());
+            			preparedStatement.setDouble(31, pl.getHoras());
+            			preparedStatement.setDouble(38, pl.getAnos());
+            		}		            		
+            			            		
+				}
+            	
+                int bq1 = 0;
+				int bq2 = 0;
+				int bq3 = 0;
+				int bq4 = 0;
+				
+            	for (Bugs bug : sistema.getBug()) {
+					
+					if(bug.getX() <= 8 && bug.getY() >= 8) {
+						bq1++;
+					}
+					else if(bug.getX() > 8 && bug.getY() > 8) {
+						bq2++;
+					}
+					else if(bug.getX() < 8 && bug.getY() < 8) {
+						bq3++;
+					}
+					else if(bug.getX() > 8 && bug.getY() < 8) {
+						bq4++;
+					}							
+				}
+            	
+                preparedStatement.setDouble(39, bq1);
+                preparedStatement.setDouble(40, bq2);
+                preparedStatement.setDouble(41, bq3);
+                preparedStatement.setDouble(42, bq4);
+                
+                int dq1 = 0;
+				int dq2 = 0;
+				int dq3 = 0;
+				int dq4 = 0;
+				
+            	for (Devs dev : sistema.getDev()) {
+					
+					if(dev.getX() <= 8 && dev.getY() >= 8) {
+						dq1++;
+					}
+					else if(dev.getX() > 8 && dev.getY() > 8) {
+						dq2++;
+					}
+					else if(dev.getX() < 8 && dev.getY() < 8) {
+						dq3++;
+					}
+					else if(dev.getX() > 8 && dev.getY() < 8) {
+						dq4++;
+					}							
+				}
+                
+                preparedStatement.setDouble(43, dq1);
+                preparedStatement.setDouble(44, dq2);
+                preparedStatement.setDouble(45, dq3);
+                preparedStatement.setDouble(46, dq4);
+                
+
+                // Executar a instrução SQL
+                int linhasAfetadas = preparedStatement.executeUpdate();
+
+                // Verificar se a inserção foi bem-sucedida
+                if (linhasAfetadas > 0) {
+                    System.out.println("Novo aluno adicionado com sucesso!");
+                } else {
+                    System.out.println("Falha ao adicionar novo aluno.");
+                }
+            }
+        } catch (SQLException i) {
+            i.printStackTrace();
+        }
+    }
+}
