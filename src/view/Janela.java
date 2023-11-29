@@ -168,7 +168,7 @@ public class Janela extends JFrame {
 			
 
 			public void actionPerformed(ActionEvent e) {
-				syst.nomes();
+				syst.arquivoDeSaida();
 				
 			}
 		});

@@ -1,8 +1,5 @@
 package view;
 
-import java.sql.Connection;
-
-import model.Conexao;
 
 public class Main {
 

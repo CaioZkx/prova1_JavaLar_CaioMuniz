@@ -9,6 +9,7 @@ import javalar.PlanoCartesiano;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,83 +22,66 @@ import view.Janela;
 public class DAO {
 	
 	private SistemaJavaLar sistema;
-	private ArrayList<String> nomes;
-	private ArrayList<String> matricula;
-	private int quantidadeInstantes;
-	private int bug_q1;
-	private int bug_q2;
-	private int bug_q3;
-	private int bug_q4;
+	private ArrayList<ArrayList<String>> dados = new ArrayList<>();
+
 	
 	public DAO(SistemaJavaLar sistema) {
 		this.sistema = sistema;
-		this.nomes = new ArrayList<String>();
-		this.matricula = new ArrayList<String>();
+
 	}
 	
     
-    public void arquivoDeSaida() {
-    	// Conectar ao banco de dados
+    public void pegarArquivos() {
+    	  	
     	try (Connection conexao = new Conexao().getConexao()) {
-    	    // Consulta SQL
+
     		String consultaSQL = "SELECT * FROM javalar";
 
-    		// Lista para armazenar os nomes
-//    		List<String> nomes = new ArrayList<>();
-
-    		// Preparar a consulta
     		try (PreparedStatement preparedStatement = conexao.prepareStatement(consultaSQL)) {
-    		    // Executar a consulta
+
     		    ResultSet resultado = preparedStatement.executeQuery();
-
-    		    // Processar os resultados
-    		    while (resultado.next()) {
-    		        // Adicionar o nome à lista
-    		        nomes.add(resultado.getString("nome"));
-    		        quantidadeInstantes++;
-    		        
-    		        bug_q1 += resultado.getInt("bug_q1");
-    		        bug_q2 += resultado.getInt("bug_q2");
-    		        bug_q3 += resultado.getInt("bug_q3");
-    		        bug_q4 += resultado.getInt("bug_q4");
-
-//    		        matricula.add(resultado.getString("matricula"));
-    		    }
-    		}
-
-    		// Imprimir os nomes
-    		for (String nome : nomes) {
-    		    System.out.println(nome);   		    
-    		}
-    		System.out.println();
-//    		for (String string : matricula) {
-//    			System.out.print(" " + string);
-//			}
-    		System.out.println(quantidadeInstantes);
-    	    
+    		    
+    		    int numeroDeColunas = resultado.getMetaData().getColumnCount();
+    		    
+    			  		    
+				
+    		    for (int i = 1; i <= numeroDeColunas; i++) {
+    		    	dados.add(new ArrayList<>());
+				}
+								
+    		    while (resultado.next()) {    		    			    	
+    	            for (int i = 1; i <= numeroDeColunas; i++) {    	            	
+    	                dados.get(i - 1).add(resultado.getString(i));
+    	            }   	              	            
+    		    }  		    
+    		}   	    
     	} catch (SQLException e) {
     	    e.printStackTrace();
     	}
     }
     
+    public ArrayList<ArrayList<String>> getDados() {
+    	return dados;
+    }
+    
     public void ExemploNomes() {
 
 
-            // Mapa para contar a frequência de cada nome
-            Map<String, Integer> contagemNomes = new HashMap<>();
-
-            // Contar a frequência de cada nome
-            for (String nome : nomes) {
-                contagemNomes.put(nome, contagemNomes.getOrDefault(nome, 0) + 1);
-            }
-
-            // Encontrar o nome mais recorrente
-            String nomeMaisRecurrente = Collections.max(contagemNomes.entrySet(), Map.Entry.comparingByValue()).getKey();
-
-            // Imprimir o resultado
-            System.out.println("Nome mais recorrente: " + nomeMaisRecurrente);
-            System.out.println("quantidade inst: " + quantidadeInstantes);
-            System.out.println("Quadrante bugs: " + nomeMaisRecurrente);
+//            // Mapa para contar a frequência de cada nome
+//            Map<String, Integer> contagemNomes = new HashMap<>();
+//
+//            // Contar a frequência de cada nome
+//            for (String nome : nomes) {
+//                contagemNomes.put(nome, contagemNomes.getOrDefault(nome, 0) + 1);
+//            }
+//
+//            // Encontrar o nome mais recorrente
+//            String nomeMaisRecurrente = Collections.max(contagemNomes.entrySet(), Map.Entry.comparingByValue()).getKey();
+//
+//            // Imprimir o resultado
+//            System.out.println("Nome mais recorrente: " + nomeMaisRecurrente);
+//            System.out.println("quantidade inst: " + quantidadeInstantes);
+//            System.out.println("Quadrante bugs: " + nomeMaisRecurrente);
         
     }
        

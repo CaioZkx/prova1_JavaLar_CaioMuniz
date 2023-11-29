@@ -18,6 +18,7 @@ public class SistemaJavaLar {
 	protected String arquivoAtual = "AE_10.csv";
 	
 	DAO dao = new DAO(this);
+	Respostas respostas = new Respostas();
 	
 	public SistemaJavaLar() {
 		this.planetas = new ArrayList<Planetas>();
@@ -428,11 +429,15 @@ public class SistemaJavaLar {
 	}
 	
 	public void saidaArquivo() {
-		dao.arquivoDeSaida();
+		dao.pegarArquivos();
 	}
 	
 	public void nomes() {
 		dao.ExemploNomes();
+	}
+	
+	public void arquivoDeSaida() {
+		respostas.manipularArquivos(dao.getDados());
 	}
 	
 }
