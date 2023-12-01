@@ -35,7 +35,7 @@ public class DAO {
     	  	
     	try (Connection conexao = new Conexao().getConexao()) {
 
-    		String consultaSQL = "SELECT * FROM javalar";
+    		String consultaSQL = "SELECT * FROM javalar LIMIT 15000";
 
     		try (PreparedStatement preparedStatement = conexao.prepareStatement(consultaSQL)) {
 
@@ -63,38 +63,16 @@ public class DAO {
     public ArrayList<ArrayList<String>> getDados() {
     	return dados;
     }
-    
-    public void ExemploNomes() {
-
-
-//            // Mapa para contar a frequência de cada nome
-//            Map<String, Integer> contagemNomes = new HashMap<>();
-//
-//            // Contar a frequência de cada nome
-//            for (String nome : nomes) {
-//                contagemNomes.put(nome, contagemNomes.getOrDefault(nome, 0) + 1);
-//            }
-//
-//            // Encontrar o nome mais recorrente
-//            String nomeMaisRecurrente = Collections.max(contagemNomes.entrySet(), Map.Entry.comparingByValue()).getKey();
-//
-//            // Imprimir o resultado
-//            System.out.println("Nome mais recorrente: " + nomeMaisRecurrente);
-//            System.out.println("quantidade inst: " + quantidadeInstantes);
-//            System.out.println("Quadrante bugs: " + nomeMaisRecurrente);
-        
-    }
-       
-      
+            
     public void relatorio() {
     	String nomeArquivo = sistema.getArquivo();
         String nomeNovoAluno = "Caio";
         int matriculaNovoAluno = 553853;
         
 
-        // Conectar ao banco de dados
+        // Conecta ao banco de dados
         try (Connection conexao = new Conexao().getConexao()) {
-            // Instrução SQL para inserir um novo aluno
+            // Instrução para inserir um novo aluno
             String insercaoSQL = "INSERT INTO javalar (nome, matricula, nome_arquivo, bug_python, bug_javascript, bug_ruby, bug_php, "
             		+ "bug_csharp, bug_cmais, bug_c, dev_python, dev_javascript, dev_ruby, dev_php, dev_csharp, dev_cmais, dev_c, "
             		+ "v_python, v_javascript, v_ruby, v_php, v_csharp, v_cmais, v_c, d_python, d_javascript, d_ruby, d_php, "
@@ -102,9 +80,8 @@ public class DAO {
             		+ "bug_q3, bug_q4, dev_q1, dev_q2, dev_q3, dev_q4) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
             		+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            // Preparar a instrução SQL
             try (PreparedStatement preparedStatement = conexao.prepareStatement(insercaoSQL)) {
-                // Definir os parâmetros
+                // definindo os parâmetros
             
             	
             	
@@ -218,16 +195,6 @@ public class DAO {
                 preparedStatement.setDouble(45, dq3);
                 preparedStatement.setDouble(46, dq4);
                 
-
-                // Executar a instrução SQL
-                int linhasAfetadas = preparedStatement.executeUpdate();
-
-                // Verificar se a inserção foi bem-sucedida
-                if (linhasAfetadas > 0) {
-                    System.out.println("Novo aluno adicionado com sucesso!");
-                } else {
-                    System.out.println("Falha ao adicionar novo aluno.");
-                }
             }
         } catch (SQLException i) {
             i.printStackTrace();

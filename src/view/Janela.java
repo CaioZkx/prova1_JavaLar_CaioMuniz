@@ -1,24 +1,12 @@
 package view;
 
 import javax.swing.*;
-
-import javalar.Bugs;
-import javalar.Devs;
 import javalar.Planetas;
 import javalar.SistemaJavaLar;
-import model.Conexao;
-import model.DAO;
-import persistencia.LerArquivo;
-
+import model.LerArquivo;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Scanner;
 
 public class Janela extends JFrame {
 	
@@ -42,17 +30,17 @@ public class Janela extends JFrame {
     
 
     private void montarJanela() {
+    	
         painelBotoes = new JPanel();
         painelBotoes.setLayout(new FlowLayout());
-        malha = new Malha();
+        
         
             
         JButton botao1 = new JButton("Processar proximo instante");
+        
         syst.adicionarPlaneta();
         botao1.addActionListener(new ActionListener() {
-        		
-        	
-        	
+   	
             public void actionPerformed(ActionEvent e) {
             	
             	
@@ -62,10 +50,7 @@ public class Janela extends JFrame {
                 int valorDevs = Integer.parseInt(aux[9]);
 
                 syst.adicionarBugs(valorBugs);
-                syst.adicionarDevs(valorDevs);
-                syst.verificarColisaoPlanetaBug();
-                syst.verificarColisaoPlanetaDev();
-                
+                syst.adicionarDevs(valorDevs);    
                 malha.remove();
                 
                 for (Planetas pl : syst.getPlanetas()) {
@@ -105,12 +90,12 @@ public class Janela extends JFrame {
                 		syst.transladar(i);
                 		malha.mover(pl.getY(), pl.getX(), pl.GetName());              	
                 	}               
-                    
                 }
+                syst.verificarColisaoPlanetaBug();
+                syst.verificarColisaoPlanetaDev();
             	
             }
         });
-
         botao1.setPreferredSize(new Dimension(350, 100));
         painelBotoes.add(botao1);
         
@@ -176,10 +161,11 @@ public class Janela extends JFrame {
         botao5.setPreferredSize(new Dimension(350, 100));
         painelBotoes.add(botao5);
 
+        
         painelBotoes.add(new JLabel("Arquivo de entrada atual:"));
         painelBotoes.add(label);
-        
-        
+               
+        malha = new Malha();
         this.add(malha);
         this.add(painelBotoes);
     }

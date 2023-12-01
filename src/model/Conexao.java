@@ -20,11 +20,11 @@ public class Conexao {
 		String url="jdbc:mysql://" + this.host + "/" + this.banco+"?enabledTLSProtocols=TLSv1.2&verifyServerCertificate=false&useSSL=true";
 		try {
 			Connection conexao = DriverManager.getConnection(url, usuario, senha);
-	        System.out.println("Conectou papai");
+//	        System.out.println("Conectou papai");
 	        return conexao;
 			
 		} catch (SQLException ex) {
-			System.out.println("Deu ruim aqui em");
+//			System.out.println("Deu ruim aqui em");
 			ex.printStackTrace();
 		}
 		return null;

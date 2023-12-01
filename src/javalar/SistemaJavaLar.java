@@ -256,7 +256,7 @@ public class SistemaJavaLar {
 	            if (planeta.getX() == bug.getX() && planeta.getY() == bug.getY()) {
 	                planeta.diminuirTranslacao();
 	                planeta.colisoesComBug++;
-	                System.out.println("\nHouve colisao com bug: " + planeta.Nome + " (" + bug.getX() + "," + bug.getY()+ ")");
+//	                System.out.println("\nHouve colisao com bug: " + planeta.Nome + " (" + bug.getX() + "," + bug.getY()+ ")");
 	                Bug.remove(i);
 	                i--;
 	            }
@@ -305,7 +305,7 @@ public class SistemaJavaLar {
 	            if (planeta.getX() == dev.getX() && planeta.getY() == dev.getY()) {
 	                planeta.aumentarTranslacao();
 	                planeta.colisoesComDev++;
-	                System.out.println("\nHouve colisao com dev: " + planeta.Nome + " (" + dev.getX() + "," + dev.getY() + ")");
+//	                System.out.println("\nHouve colisao com dev: " + planeta.Nome + " (" + dev.getX() + "," + dev.getY() + ")");
 	                Dev.remove(i);
 	                i--;
 	            }
@@ -430,10 +430,6 @@ public class SistemaJavaLar {
 	
 	public void saidaArquivo() {
 		dao.pegarArquivos();
-	}
-	
-	public void nomes() {
-		dao.ExemploNomes();
 	}
 	
 	public void arquivoDeSaida() {
